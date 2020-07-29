@@ -6,68 +6,155 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ?>
 
 <?php
-    
-    if ( isset($_POST['title']) && isset($_POST['categorie']) && isset($_POST['blogimage']) 
-        && isset($_POST['categorie']) && isset($_POST['categorie'])
+    session_start();
 
-){
-}else{
+if (isset($_POST['publish'])) {
+  if ( empty($_POST['blog_title']) || empty($_POST['blog_cat']) || empty($_POST['blog_content']) || empty($_POST['blog_tag']) ){
 
-}
+    $_SESSION["error"] = "All Fields Required";
+    header( 'Location: addnew.php');
+    return;
 
-// 
-    
-//     $folder ='uploads/';
-//     $blogimage='';
-//     $blogimage = $_FILES['blogimage']['name'];
+  }else{
 
-    
-//     $path = $folder . $blogimage ; 
-//    $target_file=$folder.basename($_FILES["blogimage"]["name"]);
-//    $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
-    
-//    $allowed=array('jpeg','png' ,'jpg'); $filename=$_FILES['blogimage']['name'];
-//    $ext=pathinfo($filename, PATHINFO_EXTENSION);
-    
-//     if(!in_array($ext,$allowed) )
-//     {
-//         echo "Sorry, only JPG, JPEG, PNG & GIF  files are allowed.";
+    $blog_image = $_FILES['blog_img']['name'];
+    if (isset($_FILES['blog_img']) && $blog_image != "") {
+      $_SESSION["error"] = "Fuck u";
 
-//     }else{
-        
-//         move_uploaded_file( $_FILES['blogimage'] ['tmp_name'], $path); 
-//         $stmt=$pdo->prepare("INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)"); 
+      $folder ='uploads/';
+      $blog_image = $_FILES['blog_img']['name'];
 
-//         $stmt->bindParam(':title', $_POST['title']); 
-//         $stmt->bindParam(':textarea', $_POST['textarea']); 
-//         $stmt->bindParam(':blogimage', $blogimage); 
-//         $stmt->execute();  
-        
-//     } 
-// }
+      $path = $folder . $blog_image ;
+      $target_file=$folder.basename($_FILES["blog_img"]["name"]);
+      $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
 
-if(isset($_POST['blogtag'])){
-    $tags=$_POST['blogtag'];
-    $tag_list = explode (",", $tags);
-    $list_tag=array();
-    $tag_db=$pdo->query("SELECT name FROM tags");
-    while ( $row = $tag_db->fetch(PDO::FETCH_ASSOC) ) {
-        $list_tag=array_push($a,$row['name']);
+      $allowed=array('jpeg','png' ,'jpg');
+      $filename=$_FILES['blog_img']['name'];
+      $ext=pathinfo($filename, PATHINFO_EXTENSION);
+      if(!in_array($ext,$allowed) ){
+        $_SESSION['error']="Only Jpeg, Jpg Png and Jpg files available";
+        header( 'Location: addnew.php');
+        return;
+      }else{
+        move_uploaded_file( $_FILES['blog_img'] ['tmp_name'], $path);
+
+        $stmt=$pdo->prepare("INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)");
+        $stmt->bindParam(':title', $_POST['blog_title']);
+        $stmt->bindParam(':textarea', $_POST['blog_content']);
+        $stmt->bindParam(':blogimage', $blog_image);
+        $stmt->execute();
+
+        $_SESSION["success"] = "success Image";
+        header( 'Location: addnew.php');
+        return;
+      }
+    }else{
+
+      $_SESSION["error"] = "All Fields Required";
+      header( 'Location: addnew.php');
+      return;
     }
-    
-    $sql = "INSERT INTO tags (name) 
-    VALUES (:name)";
-    
-    foreach($tag_list as $k => $v ) {
-        if (!in_array("$v", $list_tag))
-    {
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-        ':name' => $v ));
-    }
-  
+
+
+    $_SESSION["success"] = "success";
+
+    header( 'Location: addnew.php');
+    return;
   }
+
 }
+
+    // if(isset($_POST['blog_cat'])){
+    // }else {
+    //     $folder ='uploads/';
+    //     $blogimage='';
+    //     $blogimage = $_FILES['blog_img']['name'];
+    //
+    //     $path = $folder . $blogimage ;
+    //     $target_file=$folder.basename($_FILES["blog_img"]["name"]);
+    //     $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
+    //
+    //     $allowed=array('jpeg','png' ,'jpg');
+    //     $filename=$_FILES['blog_img']['name'];
+    //     $ext=pathinfo($filename, PATHINFO_EXTENSION);
+    //
+    //     if(!in_array($ext,$allowed) )
+    //     {
+    //       $_SESSION['error']="Only Jpeg, Jpg Png and Jpg files available";
+    //       header( 'Location: addnew.php');
+    //         return;
+    //     }else{
+    //
+    //       // move_uploaded_file( $_FILES['blogimage'] ['tmp_name'], $path);
+    //       // $stmt=$pdo->prepare("INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)");
+    //       //
+    //       // $stmt->bindParam(':title', $_POST['title']);
+    //       // $stmt->bindParam(':textarea', $_POST['textarea']);
+    //       // $stmt->bindParam(':blogimage', $blogimage);
+    //       // $stmt->execute();
+    //
+    //     }      }
+    // }
+
+    // if (isset($_FILES['blog_image'])) {
+    //   $folder ='uploads/';
+    //   $blogimage='';
+    //   $blogimage = $_FILES['blog_img']['name'];
+    //
+    //   $path = $folder . $blogimage ;
+    //   $target_file=$folder.basename($_FILES["blog_img"]["name"]);
+    //   $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
+    //
+    //   $allowed=array('jpeg','png' ,'jpg');
+    //   $filename=$_FILES['blog_img']['name'];
+    //   $ext=pathinfo($filename, PATHINFO_EXTENSION);
+    //
+    //   if(!in_array($ext,$allowed) )
+    //   {
+    //     $_SESSION['error']="Only Jpeg, Jpg Png and Jpg files available";
+    //     header( 'Location: addnew.php');
+    //     return;
+    //   }else{
+    //
+    //     // move_uploaded_file( $_FILES['blogimage'] ['tmp_name'], $path);
+    //     // $stmt=$pdo->prepare("INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)");
+    //     //
+    //     // $stmt->bindParam(':title', $_POST['title']);
+    //     // $stmt->bindParam(':textarea', $_POST['textarea']);
+    //     // $stmt->bindParam(':blogimage', $blogimage);
+    //     // $stmt->execute();
+    //
+    //   }
+    // }
+
+
+//
+// //
+
+
+
+// if(isset($_POST['blogtag'])){
+//     $tags=$_POST['blogtag'];
+//     $tag_list = explode (",", $tags);
+//     $list_tag=array();
+//     $tag_db=$pdo->query("SELECT name FROM tags");
+//     while ( $row = $tag_db->fetch(PDO::FETCH_ASSOC) ) {
+//         $list_tag=array_push($a,$row['name']);
+//     }
+
+//     $sql = "INSERT INTO tags (name)
+//     VALUES (:name)";
+
+//     foreach($tag_list as $k => $v ) {
+//         if (!in_array("$v", $list_tag))
+//     {
+//     $stmt = $pdo->prepare($sql);
+//     $stmt->execute(array(
+//         ':name' => $v ));
+//     }
+
+//   }
+// }
 ?>
 
 
@@ -96,6 +183,20 @@ if(isset($_POST['blogtag'])){
 		</div>
 		<!-- /.container-fluid -->
         <div class="container">
+            <div class="row">
+
+          <?php
+           if (isset($_SESSION['error'])) {
+             echo('<p style="color:red">'.$_SESSION["error"]."</p>\n");
+             unset($_SESSION["error"]);
+           }
+           if (isset($_SESSION['success'])) {
+             echo('<p style="color:green">'.$_SESSION["success"]."</p>\n");
+             unset($_SESSION["success"]);
+           }
+           ?>
+
+            </div>
         <div class="row">
             <div class="col-12 col-md-10 offset-3">
             <form action="./addnew.php" enctype="multipart/form-data" method="POST">
@@ -112,7 +213,7 @@ if(isset($_POST['blogtag'])){
 
                 <div class="form-group">
                     <label for="blogimg">Blog Image</label>
-                    <input type="file" name="blog_image">
+                    <input type="file" name="blog_img">
                 </div>
 
                 <div class="form-group">
@@ -123,15 +224,14 @@ if(isset($_POST['blogtag'])){
 
                 <div class="form-group">
                     <label for="tags">Blog Tags</label><span class="text-muted">   Add comma(,) separete values</span>
-                    <input type="text" class="form-control" id="blogtag" name="blog_tag">
+                    <input type="text" class="form-control" id="blog_tag" name="blog_tag">
                 </div>
-
-                <button type="submit" class="btn btn-primary" name="ok">Submit</button>
+                <input type="submit" name="publish" value="Publish Post"  class="btn btn-primary">
             </form>
             </div>
         </div>
     </div>
-     
+
 
 	</div>
 	<!-- /#page-wrapper -->

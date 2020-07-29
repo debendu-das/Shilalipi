@@ -5,6 +5,9 @@ $pdo = new PDO('mysql:host=localhost;port=3306;dbname=example',
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $stmt = $pdo->query("SELECT email, textarea FROM users");
+
+session_start();
+
 ?>
 <?php include 'includes/header.php'; ?>
 
@@ -28,7 +31,19 @@ $stmt = $pdo->query("SELECT email, textarea FROM users");
 					</h1>
 			</div>
 			<div class="container">
-				
+        <div class="row">
+          <?php
+           if (isset($_SESSION['error'])) {
+             echo('<p style="color:red">'.$_SESSION["error"]."</p>\n");
+             unset($_SESSION["error"]);
+           }
+           if (isset($_SESSION['success'])) {
+             echo('<p style="color:green">'.$_SESSION["success"]."</p>\n");
+             unset($_SESSION["success"]);
+           }
+           ?>
+        </div>
+
 			</div>
 		</div>
 

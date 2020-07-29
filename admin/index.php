@@ -1,7 +1,7 @@
 <?php include 'includes/header.php';?>
 
 <body>
-    
+
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -127,7 +127,7 @@
     </div>
     <!-- /#wrapper -->
 
-    
+
     <!-- jQuery -->
     <script src="bootstrap/js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->

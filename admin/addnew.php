@@ -6,9 +6,12 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ?>
 
 <?php
-    session_start();
+    session_start();  //session start
 
-if (isset($_POST['publish'])) {
+//form validation start
+
+if (isset($_POST['publish'])) { //submit for or not
+
   if ( empty($_POST['blog_title']) || empty($_POST['blog_cat']) || empty($_POST['blog_content']) || empty($_POST['blog_tag']) ){
 
     $_SESSION["error"] = "All Fields Required";
@@ -23,8 +26,7 @@ if (isset($_POST['publish'])) {
 
       $folder ='uploads/';
       $blog_image = $_FILES['blog_img']['name'];
-
-      $path = $folder . $blog_image ;
+      $newname = $folder . time() ."-". rand(1000, 9999). $blog_image ;
       $target_file=$folder.basename($_FILES["blog_img"]["name"]);
       $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
 
@@ -36,13 +38,50 @@ if (isset($_POST['publish'])) {
         header( 'Location: addnew.php');
         return;
       }else{
-        move_uploaded_file( $_FILES['blog_img'] ['tmp_name'], $path);
+        //tag making
+        $tags=$_POST['blog_tag'];
+        $tag_list = explode (",", $tags);
+        // $list_tag=array();
+        // $tag_db=$pdo->query("SELECT name FROM tags");
+        // while ( $row = $tag_db->fetch(PDO::FETCH_ASSOC) ) {
+        //     $list_tag=array_push($a,$row['name']);
+        // }
 
-        $stmt=$pdo->prepare("INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)");
-        $stmt->bindParam(':title', $_POST['blog_title']);
-        $stmt->bindParam(':textarea', $_POST['blog_content']);
-        $stmt->bindParam(':blogimage', $blog_image);
-        $stmt->execute();
+        foreach($tag_list as $k => $v ) {
+          $sql = "INSERT INTO tags (name) SELECT * FROM (SELECT :v) AS tmp
+                  WHERE NOT EXISTS ( SELECT name FROM tags WHERE name = :v) LIMIT 1;";
+          $stmt = $pdo->prepare($sql);
+          $stmt->execute(array(
+              ':v' => $v));
+        }
+
+        //image upload
+        move_uploaded_file( $_FILES['blog_img'] ['tmp_name'], $newname);
+
+        $sql = "INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':title' => $_POST['blog_title'],
+            ':textarea' => $_POST['blog_content'],
+            ':blogimage' => $newname));
+        $blog_id = $pdo->lastInsertId();
+
+
+        foreach($tag_list as $k => $v ) {
+          $sql2 = "SELECT * FROM tags WHERE name = '$v' " ;
+          $stmt = $pdo->query($sql2);
+          $row = $stmt->fetch(PDO::FETCH_ASSOC);
+          $tag_id = $row['tag_id'];
+
+          $sql = "INSERT INTO usertag (user_id, tag_id) VALUES ( :user_id, :tag_id )";
+          $stmt = $pdo->prepare($sql);
+          $stmt->execute(array(
+              ':user_id' => $blog_id,
+              ':tag_id' => $tag_id ));
+        }
+
+
+
 
         $_SESSION["success"] = "success Image";
         header( 'Location: addnew.php');
@@ -63,75 +102,6 @@ if (isset($_POST['publish'])) {
   }
 
 }
-
-    // if(isset($_POST['blog_cat'])){
-    // }else {
-    //     $folder ='uploads/';
-    //     $blogimage='';
-    //     $blogimage = $_FILES['blog_img']['name'];
-    //
-    //     $path = $folder . $blogimage ;
-    //     $target_file=$folder.basename($_FILES["blog_img"]["name"]);
-    //     $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
-    //
-    //     $allowed=array('jpeg','png' ,'jpg');
-    //     $filename=$_FILES['blog_img']['name'];
-    //     $ext=pathinfo($filename, PATHINFO_EXTENSION);
-    //
-    //     if(!in_array($ext,$allowed) )
-    //     {
-    //       $_SESSION['error']="Only Jpeg, Jpg Png and Jpg files available";
-    //       header( 'Location: addnew.php');
-    //         return;
-    //     }else{
-    //
-    //       // move_uploaded_file( $_FILES['blogimage'] ['tmp_name'], $path);
-    //       // $stmt=$pdo->prepare("INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)");
-    //       //
-    //       // $stmt->bindParam(':title', $_POST['title']);
-    //       // $stmt->bindParam(':textarea', $_POST['textarea']);
-    //       // $stmt->bindParam(':blogimage', $blogimage);
-    //       // $stmt->execute();
-    //
-    //     }      }
-    // }
-
-    // if (isset($_FILES['blog_image'])) {
-    //   $folder ='uploads/';
-    //   $blogimage='';
-    //   $blogimage = $_FILES['blog_img']['name'];
-    //
-    //   $path = $folder . $blogimage ;
-    //   $target_file=$folder.basename($_FILES["blog_img"]["name"]);
-    //   $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
-    //
-    //   $allowed=array('jpeg','png' ,'jpg');
-    //   $filename=$_FILES['blog_img']['name'];
-    //   $ext=pathinfo($filename, PATHINFO_EXTENSION);
-    //
-    //   if(!in_array($ext,$allowed) )
-    //   {
-    //     $_SESSION['error']="Only Jpeg, Jpg Png and Jpg files available";
-    //     header( 'Location: addnew.php');
-    //     return;
-    //   }else{
-    //
-    //     // move_uploaded_file( $_FILES['blogimage'] ['tmp_name'], $path);
-    //     // $stmt=$pdo->prepare("INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)");
-    //     //
-    //     // $stmt->bindParam(':title', $_POST['title']);
-    //     // $stmt->bindParam(':textarea', $_POST['textarea']);
-    //     // $stmt->bindParam(':blogimage', $blogimage);
-    //     // $stmt->execute();
-    //
-    //   }
-    // }
-
-
-//
-// //
-
-
 
 // if(isset($_POST['blogtag'])){
 //     $tags=$_POST['blogtag'];

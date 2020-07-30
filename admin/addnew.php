@@ -1,32 +1,33 @@
 <?php
-$pdo = new PDO('mysql:host=localhost;port=3306;dbname=example',
+$pdo = new PDO('mysql:host=localhost;port=3306;dbname=blogsystem',
     'deb', 'das');
 // See the "errors" folder for details...
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ?>
 
 <?php
-    session_start();  //session start
+session_start();  //session start
 
+$_SESSION['user_id'] = 1;
 //form validation start
 if (isset($_POST['publish'])) { //submit for or not
+
+  $_SESSION['blogtitle'] = $_POST['blog_title'];
+  $_SESSION['blogcat'] = $_POST['blog_cat'];
+  $_SESSION['blogcontent'] = $_POST['blog_content'];
+  $_SESSION['blogtag'] = $_POST['blog_tag'];
   $blog_image = $_FILES['blog_img']['name'];
 
   if ( empty($_POST['blog_title']) || empty($_POST['blog_cat']) || empty($_POST['blog_content']) || empty($_POST['blog_tag']) || (!(isset($_FILES['blog_img']) && $blog_image != "")) ){
 
-    $_SESSION['blogtitle'] = $_POST['blog_title'];
-    $_SESSION['blogcat'] = $_POST['blog_cat'];
-    $_SESSION['blogcontent'] = $_POST['blog_content'];
-    $_SESSION['blogtag'] = $_POST['blog_tag'];
     $_SESSION["error"] = "All Fields Required";
     header( 'Location: addnew.php');
     return;
 
   }else{
 
-    $blog_image = $_FILES['blog_img']['name'];
-    //if (isset($_FILES['blog_img']) && $blog_image != "") {
-      $_SESSION["error"] = "Fuck u";
+      $blog_image = $_FILES['blog_img']['name'];
+      //if (isset($_FILES['blog_img']) && $blog_image != "") {
 
       $folder ='uploads/';
       $blog_image = $_FILES['blog_img']['name'];
@@ -34,72 +35,99 @@ if (isset($_POST['publish'])) { //submit for or not
       $target_file=$folder.basename($_FILES["blog_img"]["name"]);
       $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
 
+//Image Validation
       $allowed=array('jpeg','png' ,'jpg');
       $filename=$_FILES['blog_img']['name'];
       $ext=pathinfo($filename, PATHINFO_EXTENSION);
       if(!in_array($ext,$allowed) ){
         $_SESSION['error']="Only Jpeg, Jpg Png and Jpg files available";
+
+        $_SESSION['blogtitle'] = $_POST['blog_title'];
+        $_SESSION['blogcat'] = $_POST['blog_cat'];
+        $_SESSION['blogcontent'] = $_POST['blog_content'];
+        $_SESSION['blogtag'] = $_POST['blog_tag'];
+
         header( 'Location: addnew.php');
         return;
       }else{
+
+//Categorie Table data INSERT
+        $sql = "INSERT INTO categorie ( cat_name ) SELECT * FROM (SELECT :v) AS tmp
+                WHERE NOT EXISTS ( SELECT cat_name FROM categorie WHERE cat_name = :v ) LIMIT 1;";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':v' => $_SESSION['blogcat']));
+        //cat_id
+        $cat = $_SESSION['blogcat'] ;
+        $sql2 = "SELECT * FROM categorie WHERE cat_name = '$cat' " ;
+        $stmt = $pdo->query($sql2);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $cat_id = $row['cat_id'];
+
+//Tag Table data INSERT
         //tag making
         $tags=$_POST['blog_tag'];
         $tag_list = explode (",", $tags);
-        // $list_tag=array();
-        // $tag_db=$pdo->query("SELECT name FROM tags");
-        // while ( $row = $tag_db->fetch(PDO::FETCH_ASSOC) ) {
-        //     $list_tag=array_push($a,$row['name']);
-        // }
-
+        //inserting data
         foreach($tag_list as $k => $v ) {
-          $sql = "INSERT INTO tags (name) SELECT * FROM (SELECT :v) AS tmp
-                  WHERE NOT EXISTS ( SELECT name FROM tags WHERE name = :v) LIMIT 1;";
+          $sql = "INSERT INTO tag ( tag_name ) SELECT * FROM (SELECT :v) AS tmp
+                  WHERE NOT EXISTS ( SELECT tag_name FROM tag WHERE tag_name = :v) LIMIT 1;";
           $stmt = $pdo->prepare($sql);
           $stmt->execute(array(
               ':v' => $v));
         }
 
+        //datetime of publish
+        $datetime = date("M d, Y h:ia");
         //image upload
         move_uploaded_file( $_FILES['blog_img'] ['tmp_name'], $newname);
 
-        $sql = "INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)";
+        // $sql = "INSERT INTO users (email, textarea, images) VALUES ( :title, :textarea, :blogimage)";
+        $sql = "INSERT INTO blog ( blog_title, blog_img, blog_content, blog_date, cat_id, user_id)
+                VALUES ( :blog_title, :blogimage, :blog_content, :blog_date, :cat_id, :user_id ) ";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
-            ':title' => $_POST['blog_title'],
-            ':textarea' => $_POST['blog_content'],
-            ':blogimage' => $newname));
+            ':blog_title' => $_SESSION['blogtitle'],
+            ':blogimage' => $newname,
+            ':blog_content' => $_SESSION['blogcontent'],
+            ':blog_date' => $datetime,
+            ':cat_id' => $cat_id,
+            ':user_id' => $_SESSION['user_id'] ));
+        //blog_id
         $blog_id = $pdo->lastInsertId();
 
+        //  $stmt->execute(array(
+        //     ':title' => $_POST['blog_title'],
+        //      ':textarea' => $_POST['blog_content'],
+        //      ':blogimage' => $newname));
+        //  $blog_id = $pdo->lastInsertId();
+        //
 
+//Blogtag Many to Many data insert
         foreach($tag_list as $k => $v ) {
-          $sql2 = "SELECT * FROM tags WHERE name = '$v' " ;
+          $sql2 = "SELECT * FROM tag WHERE tag_name = '$v' " ;
           $stmt = $pdo->query($sql2);
           $row = $stmt->fetch(PDO::FETCH_ASSOC);
           $tag_id = $row['tag_id'];
 
-          $sql = "INSERT INTO usertag (user_id, tag_id) VALUES ( :user_id, :tag_id )";
+          $sql = "INSERT INTO blogtags (blog_id, tag_id) VALUES ( :blog_id, :tag_id )";
           $stmt = $pdo->prepare($sql);
           $stmt->execute(array(
-              ':user_id' => $blog_id,
+              ':blog_id' => $blog_id,
               ':tag_id' => $tag_id ));
         }
 
-
+//Unset all Seassional variable for Form Validation
         unset($_SESSION["blogtitle"]);
         unset($_SESSION["blogcat"]);
         unset($_SESSION["blogcontent"]);
         unset($_SESSION["blogtag"]);
 
-
-        $_SESSION["success"] = "success Image";
+//Sucess message
+        $_SESSION["success"] = "Blog Added";
         header( 'Location: addnew.php');
         return;
       }
-
-    $_SESSION["success"] = "success";
-
-    header( 'Location: addnew.php');
-    return;
   }
 
 }

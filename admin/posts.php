@@ -1,12 +1,14 @@
 <?php
-$pdo = new PDO('mysql:host=localhost;port=3306;dbname=example',
+$pdo = new PDO('mysql:host=localhost;port=3306;dbname=blogsystem',
     'deb', 'das');
 // See the "errors" folder for details...
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$stmt = $pdo->query("SELECT email, textarea FROM users");
+// $stmt = $pdo->query("SELECT email, textarea FROM users");
 
 session_start();
+
+$_SESSION['user_id'] = 1;
 
 ?>
 <?php include 'includes/header.php'; ?>

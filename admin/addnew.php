@@ -9,11 +9,15 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     session_start();  //session start
 
 //form validation start
-
 if (isset($_POST['publish'])) { //submit for or not
+  $blog_image = $_FILES['blog_img']['name'];
 
-  if ( empty($_POST['blog_title']) || empty($_POST['blog_cat']) || empty($_POST['blog_content']) || empty($_POST['blog_tag']) ){
+  if ( empty($_POST['blog_title']) || empty($_POST['blog_cat']) || empty($_POST['blog_content']) || empty($_POST['blog_tag']) || (!(isset($_FILES['blog_img']) && $blog_image != "")) ){
 
+    $_SESSION['blogtitle'] = $_POST['blog_title'];
+    $_SESSION['blogcat'] = $_POST['blog_cat'];
+    $_SESSION['blogcontent'] = $_POST['blog_content'];
+    $_SESSION['blogtag'] = $_POST['blog_tag'];
     $_SESSION["error"] = "All Fields Required";
     header( 'Location: addnew.php');
     return;
@@ -21,7 +25,7 @@ if (isset($_POST['publish'])) { //submit for or not
   }else{
 
     $blog_image = $_FILES['blog_img']['name'];
-    if (isset($_FILES['blog_img']) && $blog_image != "") {
+    //if (isset($_FILES['blog_img']) && $blog_image != "") {
       $_SESSION["error"] = "Fuck u";
 
       $folder ='uploads/';
@@ -81,19 +85,16 @@ if (isset($_POST['publish'])) { //submit for or not
         }
 
 
+        unset($_SESSION["blogtitle"]);
+        unset($_SESSION["blogcat"]);
+        unset($_SESSION["blogcontent"]);
+        unset($_SESSION["blogtag"]);
 
 
         $_SESSION["success"] = "success Image";
         header( 'Location: addnew.php');
         return;
       }
-    }else{
-
-      $_SESSION["error"] = "All Fields Required";
-      header( 'Location: addnew.php');
-      return;
-    }
-
 
     $_SESSION["success"] = "success";
 
@@ -103,28 +104,6 @@ if (isset($_POST['publish'])) { //submit for or not
 
 }
 
-// if(isset($_POST['blogtag'])){
-//     $tags=$_POST['blogtag'];
-//     $tag_list = explode (",", $tags);
-//     $list_tag=array();
-//     $tag_db=$pdo->query("SELECT name FROM tags");
-//     while ( $row = $tag_db->fetch(PDO::FETCH_ASSOC) ) {
-//         $list_tag=array_push($a,$row['name']);
-//     }
-
-//     $sql = "INSERT INTO tags (name)
-//     VALUES (:name)";
-
-//     foreach($tag_list as $k => $v ) {
-//         if (!in_array("$v", $list_tag))
-//     {
-//     $stmt = $pdo->prepare($sql);
-//     $stmt->execute(array(
-//         ':name' => $v ));
-//     }
-
-//   }
-// }
 ?>
 
 
@@ -173,12 +152,12 @@ if (isset($_POST['publish'])) { //submit for or not
 
                 <div class="form-group">
                     <label for="Title">Title</label>
-                    <input type="text" class="form-control" id="textinput" name="blog_title" placeholder="Blog Title">
+                    <input type="text" class="form-control" id="textinput" name="blog_title" placeholder="Blog Title" value="<?php echo (isset($_SESSION['blogtitle']) ? $_SESSION['blogtitle'] : ''); ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="categorie">Categorie</label>
-                    <input type="text" class="form-control" id="catinput" name="blog_cat" placeholder="Blog Categorie">
+                    <input type="text" class="form-control" id="catinput" name="blog_cat" placeholder="Blog Categorie" value="<?php echo (isset($_SESSION['blogcat']) ? $_SESSION['blogcat'] : ''); ?>">
                 </div>
 
                 <div class="form-group">
@@ -189,12 +168,12 @@ if (isset($_POST['publish'])) { //submit for or not
                 <div class="form-group">
                     <label for="blogcontent">Blog Content</label>
                     <!-- <div id="summernote"></div> -->
-                    <textarea name="blog_content" id="summernote">Write Your Blog Here !</textarea>
+                    <textarea name="blog_content" id="summernote" ><?php echo (isset($_SESSION['blogcontent']) ? $_SESSION['blogcontent'] : ''); ?></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="tags">Blog Tags</label><span class="text-muted">   Add comma(,) separete values</span>
-                    <input type="text" class="form-control" id="blog_tag" name="blog_tag">
+                    <input type="text" class="form-control" id="blog_tag" name="blog_tag" value="<?php echo (isset($_SESSION['blogtag']) ? $_SESSION['blogtag'] : ''); ?>">
                 </div>
                 <input type="submit" name="publish" value="Publish Post"  class="btn btn-primary">
             </form>

@@ -52,7 +52,7 @@
                     <li>
                         <a href="comment.php"><i class="fa fa-fw fa-comment"></i> Comments </a>
                     </li>
-                    
+
                     <li>
                         <a href="profile.php"><i class="fa fa-fw fa-user"></i> Profile</a>
                     </li>
@@ -60,6 +60,8 @@
                         <a href="settings.php"><i class="fa fa-fw fa-cog"></i> Settings</a>
                     </li>
                 </ul>
+
             </div>
             <!-- /.navbar-collapse -->
+
 </nav>

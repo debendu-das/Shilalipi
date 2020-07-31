@@ -123,6 +123,7 @@ ul.alert-dropdown {
         border-radius: 0;
         overflow-y: auto;
         background-color: #222;
+        display: block;
     }
 
     .side-nav>li>a {
@@ -133,6 +134,9 @@ ul.alert-dropdown {
     .side-nav li a:focus {
         outline: none;
         background-color: #000 !important;
+    }
+    .table-responsive{
+      width: 80%;
     }
 }
 

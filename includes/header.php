@@ -29,11 +29,11 @@
             </div>
           </div>
         </div>
-        
+
         <nav class="navbar navbar-expand-md  navbar-light bg-light">
           <div class="container">
-            
-           
+
+
             <div class="collapse navbar-collapse" id="navbarMenu">
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
@@ -46,7 +46,15 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="category.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown05">
-                    <a class="dropdown-item" href="category.html">Lifestyle</a>
+                    <?php
+                      $stmt = $pdo->query("SELECT cat_id, cat_name FROM categorie LIMIT 5 ");
+                       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            $cat_id = $row['cat_id'];
+                            $cat_title = $row['cat_name'];
+                            echo "<a class='dropdown-item' href='category.html?cat_id={$cat_id}'>";
+                            echo "{$cat_title}</a>";
+                        }
+                     ?>
                   </div>
 
                 </li>
@@ -60,7 +68,7 @@
                   <a class="nav-link" href="./admin/index.php">Login</a>
                 </li>
               </ul>
-              
+
             </div>
           </div>
         </nav>

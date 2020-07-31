@@ -1,6 +1,7 @@
+<?php include_once 'includes/pdo.php'; ?>
 
 <?php
-include_once "./includes/head.php";  
+include_once "./includes/head.php";
 ?>
   <body>
     <div class="wrap">
@@ -15,12 +16,16 @@ include_once "./includes/head.php";
             </div>
           </div>
           <div class="row blog-entries">
-          
-          <?php include_once "./includes/posts.php"; ?>
+            <div class="col-md-12 col-lg-8 main-content">
+              <div class="row">
 
+                <?php include_once "./includes/posts.php"; ?>
 
+              </div>
+
+            </div>
             <!-- END main-content -->
-
+          </div>
             <div class="col-md-12 col-lg-4 sidebar">
               <div class="sidebar-box search-form-wrap">
                 <form action="#" class="search-form">
@@ -31,8 +36,8 @@ include_once "./includes/head.php";
                 </form>
               </div>
               <!-- END sidebar-box -->
-              
-              <!-- END sidebar-box -->  
+
+              <!-- END sidebar-box -->
               <div class="sidebar-box">
                 <h3 class="heading">Popular Posts</h3>
                 <?php include_once "./includes/popularpost.php"; ?>
@@ -57,11 +62,11 @@ include_once "./includes/head.php";
           </div>
         </div>
       </section>
-    
+
       <?php include_once "./includes/footer.php"; ?>
 
     </div>
-    
+
     <?php include_once "./includes/scripts.php"; ?>
 
   </body>

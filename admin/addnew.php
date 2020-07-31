@@ -78,7 +78,7 @@ if (isset($_POST['publish'])) { //submit for or not
         }
 
         //datetime of publish
-        $datetime = date("M d, Y h:ia");
+        $datetime = date("M d,Y h:ia");
         //image upload
         move_uploaded_file( $_FILES['blog_img'] ['tmp_name'], $newname);
 
@@ -125,7 +125,7 @@ if (isset($_POST['publish'])) { //submit for or not
 
 //Sucess message
         $_SESSION["success"] = "Blog Added";
-        header( 'Location: addnew.php');
+        header( 'Location: posts.php');
         return;
       }
   }

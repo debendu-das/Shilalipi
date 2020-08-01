@@ -44,12 +44,14 @@ include_once "./includes/head.php";
                     <h3 class="heading">Recent Posts</h3>
                   </div>
                   <div class="col-6">
-                    <a href="popular.php" class="mx-auto">See all</a>
+                    <a href="popular.php">See all</a>
                   </div>
                 </div>
-
-                <?php include_once "./includes/recentpost-side.php"; ?>
-
+                <div class="post-entry-sidebar">
+                  <ul>
+                    <?php include_once "./includes/recentpost-side.php"; ?>
+                  </ul>
+                </div>
               </div>
               <!-- END sidebar-box -->
 
@@ -62,9 +64,9 @@ include_once "./includes/head.php";
                     <a href="category.html">See all</a>
                   </div>
                 </div>
-
+                <ul class="categories">
                 <?php include_once "./includes/categoriespost.php"; ?>
-
+                </ul>
               </div>
               <!-- END sidebar-box -->
 
@@ -77,8 +79,9 @@ include_once "./includes/head.php";
                     <a href="#">See all</a>
                   </div>
                 </div>
-
+                <ul class="tags">
                 <?php include_once "./includes/tagpost.php"; ?>
+                </ul>
               </div>
             </div>
             <!-- END sidebar -->

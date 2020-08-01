@@ -1,7 +1,10 @@
-<?php include_once 'includes/pdo.php'; ?>
+<?php include_once 'includes/pdo.php';
+session_start();
+?>
 
 <?php
 include_once "./includes/head.php";
+
 ?>
   <body>
     <div class="wrap">
@@ -10,6 +13,20 @@ include_once "./includes/head.php";
 
       <section class="site-section py-sm">
         <div class="container">
+
+          <div class="row">
+            <?php
+             if (isset($_SESSION['error'])) {
+               echo('<p style="color:red">'.$_SESSION["error"]."</p>\n");
+               unset($_SESSION["error"]);
+             }
+             if (isset($_SESSION['success'])) {
+               echo('<p style="color:green">'.$_SESSION["success"]."</p>\n");
+               unset($_SESSION["success"]);
+             }
+             ?>
+          </div>
+
           <div class="row pt-5">
             <div class="col-md-6">
               <h2 class="mb-4">Latest Posts</h2>
@@ -44,12 +61,14 @@ include_once "./includes/head.php";
                     <h3 class="heading">Popular Posts</h3>
                   </div>
                   <div class="col-6">
-                    <a href="popular.php" class="mx-auto">See all</a>
+                    <a href="popular.php">See all</a>
                   </div>
                 </div>
-
-                <?php include_once "./includes/popularpost-side.php"; ?>
-
+                <div class="post-entry-sidebar">
+                  <ul>
+                    <?php include_once "./includes/popularpost-side.php"; ?>
+                  </ul>
+                </div>
               </div>
               <!-- END sidebar-box -->
 
@@ -62,9 +81,9 @@ include_once "./includes/head.php";
                     <a href="category.html">See all</a>
                   </div>
                 </div>
-
+                <ul class="categories">
                 <?php include_once "./includes/categoriespost.php"; ?>
-
+                </ul>
               </div>
               <!-- END sidebar-box -->
 
@@ -77,9 +96,11 @@ include_once "./includes/head.php";
                     <a href="#">See all</a>
                   </div>
                 </div>
-
+                <ul class="tags">
                 <?php include_once "./includes/tagpost.php"; ?>
+                </ul>
               </div>
+
             </div>
             <!-- END sidebar -->
 

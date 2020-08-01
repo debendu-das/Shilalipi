@@ -1,13 +1,11 @@
 <?php include_once 'pdo.php' ?>
 
 <?php
-  $sql1 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_date FROM blog ORDER BY blog_view DESC LIMIT $limit, 4 ";
+  $sql1 = "SELECT blog_id, blog_title, blog_img, blog_date FROM blog ORDER BY blog_view DESC LIMIT 4 ";
   $stmt = $pdo->query($sql1);
   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 ?>
 
-<div class="post-entry-sidebar">
-  <ul>
     <li>
       <a href="index.php?blog=<?php echo($row['blog_id']); ?>">
         <img src="admin/<?php echo $row['blog_img'];?>" alt="Image placeholder" class="mr-4">
@@ -19,7 +17,5 @@
         </div>
       </a>
     </li>
-  </ul>
-</div>
 
 <?php } ?>

@@ -30,7 +30,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
  <!-- single post -->
   <div class="col-md-6">
-    <a href="blog-single.html?blog=<?= $row['blog_id'] ?>" class="blog-entry element-animate" data-animate-effect="fadeIn">
+    <a href="blog-single.php?blog_id=<?= $row['blog_id'] ?>" class="blog-entry element-animate" data-animate-effect="fadeIn">
       <img src="admin/<?php echo $row['blog_img'];?>" alt="Image placeholder">
       <div class="blog-content-body">
         <div class="post-meta">

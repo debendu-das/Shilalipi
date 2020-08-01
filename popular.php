@@ -12,14 +12,14 @@ include_once "./includes/head.php";
         <div class="container">
           <div class="row pt-5">
             <div class="col-md-6">
-              <h2 class="mb-4">Latest Posts</h2>
+              <h2 class="mb-4">Popular Posts</h2>
             </div>
           </div>
           <div class="row blog-entries">
             <div class="col-md-12 col-lg-8 main-content">
               <div class="row">
 
-                <?php include_once "./includes/posts.php"; ?>
+                <?php include_once "./includes/popularposts.php"; ?>
 
               </div>
 
@@ -41,14 +41,14 @@ include_once "./includes/head.php";
               <div class="sidebar-box">
                 <div class="row">
                   <div class="col-6">
-                    <h3 class="heading">Popular Posts</h3>
+                    <h3 class="heading">Recent Posts</h3>
                   </div>
                   <div class="col-6">
                     <a href="popular.php" class="mx-auto">See all</a>
                   </div>
                 </div>
 
-                <?php include_once "./includes/popularpost-side.php"; ?>
+                <?php include_once "./includes/recentpost-side.php"; ?>
 
               </div>
               <!-- END sidebar-box -->

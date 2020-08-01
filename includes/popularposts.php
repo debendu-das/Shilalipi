@@ -17,7 +17,7 @@ if (isset($_GET['page'])) {
 }
 
 
-$sql1 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_date, users.user_id, users.name, users.user_img FROM blog JOIN users Where blog.user_id = users.user_id ORDER BY blog_id DESC LIMIT $limit, 4 ";
+$sql1 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_date, users.user_id, users.name, users.user_img FROM blog JOIN users Where blog.user_id = users.user_id ORDER BY blog_view DESC LIMIT $limit, 4 ";
 $stmt = $pdo->query($sql1);
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
   $blogid = $row['blog_id'];

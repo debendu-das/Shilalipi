@@ -63,6 +63,12 @@ if (isset($_POST['publish'])) { //submit for or not
         $stmt = $pdo->query($sql2);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $cat_id = $row['cat_id'];
+        //cat used update
+        $sqlupdate = "UPDATE categorie SET used = used + 1 WHERE cat_id = :cat ";
+        $stmtupdate = $pdo->prepare($sqlupdate);
+        $stmtupdate->execute(array(
+          ':cat' => $cat_id));
+
 
 //Tag Table data INSERT
         //tag making
@@ -109,6 +115,11 @@ if (isset($_POST['publish'])) { //submit for or not
           $stmt = $pdo->query($sql2);
           $row = $stmt->fetch(PDO::FETCH_ASSOC);
           $tag_id = $row['tag_id'];
+
+          $sqlupdate = "UPDATE tag SET used = used + 1 WHERE tag_id = :tag ";
+          $stmtupdate = $pdo->prepare($sqlupdate);
+          $stmtupdate->execute(array(
+            ':tag' => $tag_id));
 
           $sql = "INSERT INTO blogtags (blog_id, tag_id) VALUES ( :blog_id, :tag_id )";
           $stmt = $pdo->prepare($sql);

@@ -6,10 +6,6 @@ $limitend = $limit+4;
 $page = 1;
 
 if (isset($_GET['page'])) {
-  if (($_GET['page'] == 0 ) || ($_GET['page'] == 1 )) {
-    header('Location: ./index.php');
-    return;
-  }
 
   $page = $_GET['page'];
   $limitend = $page*4;
@@ -51,7 +47,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
   <div class="col-md-12 text-center">
     <nav aria-label="Page navigation" class="text-center">
       <ul class="pagination">
-        <li class="page-item  active"><a class="page-link" href="index.php?page=<?= $page-1 ?>">&lt;</a></li>
+        <li class="page-item  active"><a class="page-link" href="index.php?page=<?= $page>1 ? $page-1 : $page  ?>">&lt;</a></li>
         <li class="page-item"><a class="page-link" href="index.php">1</a></li>
         <li class="page-item"><a class="page-link" href="index.php?page=2">2</a></li>
         <li class="page-item"><a class="page-link" href="index.php?page=3">3</a></li>

@@ -1,9 +1,8 @@
 <?php include 'includes/pdo.php';?>
 <?php
-$sqlcomment = "SELECT comments.comment_id, comments.blog_id, comments.comment_content, comments.comment_date, users.user_id, users.name, users.user_img FROM comments JOIN users ON comments.blog_id = $blogid AND users.user_id = comments.comment_id";
+$sqlcomment = "SELECT comments.comment_id, comments.blog_id, comments.comment_content, comments.comment_date, users.user_id, users.name, users.user_img FROM comments JOIN users ON comments.blog_id = $blogid AND users.user_id = comments.user_id";
 $stmtcomment = $pdo->query($sqlcomment);
 while ($row = $stmtcomment->fetch(PDO::FETCH_ASSOC)) {
-
 ?>
 
 

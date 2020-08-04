@@ -2,11 +2,12 @@
 
 <?php
 $fetched = false ;
-$sql = " SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_content, blog.blog_date, categorie.cat_name, users.name, users.user_img FROM blog JOIN categorie JOIN users ON blog.cat_id = categorie.cat_id AND blog.user_id = users.user_id AND blog_id = $blogid ";
+$sql = " SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_content, blog.blog_date, blog.user_id, categorie.cat_name, users.name, users.user_img FROM blog JOIN categorie JOIN users ON blog.cat_id = categorie.cat_id AND blog.user_id = users.user_id AND blog_id = $blogid ";
 $stmt = $pdo->query($sql);
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
   $fetched = true ;
   $blogcat = $row['cat_name'];
+  $bloguserid = $row['user_id'];
   $sql3 = " SELECT comment_id FROM comments WHERE blog_id = '$blogid' ";
   $stmt2 = $pdo->query($sql3);
   $count = $stmt2->rowCount();
@@ -14,7 +15,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
     <img src="./admin/<?= $row['blog_img'] ?>" alt="Image" class="img-fluid mb-5">
      <div class="post-meta">
-        <span class="author mr-2"><img src="./admin/<?= $row['user_img'] ?>" alt="Colorlib" class="mr-2"> Colorlib</span>&bullet;
+        <span class="author mr-2"><img src="./admin/<?= $row['user_img'] ?>" alt="Colorlib" class="mr-2"> <?= $row['name'] ?></span>&bullet;
         <span class="mr-2"><?= $row['blog_date'] ?> </span> &bullet;
         <span class="ml-2"><span class="fa fa-comments"></span> <?= $count ?></span>
       </div>

@@ -1,7 +1,14 @@
-<?php include_once 'includes/pdo.php'; ?>
+<?php include_once 'includes/pdo.php';
+session_start();
+include 'includes/redirectlogin.php';
+
+?>
 
 <?php
 include_once "./includes/head.php";
+if(isset($_SESSION['user_id'])) {
+  unset($_SESSION['user_id']);
+}
 ?>
   <body>
     <div class="wrap">

@@ -1,23 +1,15 @@
-<form action="#" class="p-5 bg-light">
-  <div class="form-group">
-    <label for="name">Name *</label>
-    <input type="text" class="form-control" id="name">
-  </div>
-  <div class="form-group">
-    <label for="email">Email *</label>
-    <input type="email" class="form-control" id="email">
-  </div>
-  <div class="form-group">
-    <label for="website">Website</label>
-    <input type="url" class="form-control" id="website">
-  </div>
+<?php
+
+ ?>
+
+<form method="POST" action="./blog-single.php?blog_id=<?= $blogid ?>" class="p-5 bg-light">
 
   <div class="form-group">
-    <label for="message">Message</label>
-    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+    <label for="message">Comment</label>
+    <textarea name="comment_content" id="message" cols="30" rows="10" class="form-control"></textarea>
   </div>
   <div class="form-group">
-    <input type="submit" value="Post Comment" class="btn btn-primary">
+    <input type="submit" value="postcomment" class="btn btn-primary">
   </div>
 
 </form>

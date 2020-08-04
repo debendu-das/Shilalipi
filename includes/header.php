@@ -65,7 +65,14 @@
                   <a class="nav-link" href="contact.html">Contact</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="./admin/index.php">Login</a>
+                  <a class="nav-link" href=
+                  <?php if (isset($_SESSION['user_id'])) {
+                    echo " './admin/' >Dashboard </a>";
+                  }else {
+                    echo " './login.php' >Login </a>";
+                  }
+
+                   ?>
                 </li>
               </ul>
 

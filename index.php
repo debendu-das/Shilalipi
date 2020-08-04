@@ -1,5 +1,7 @@
 <?php include_once 'includes/pdo.php';
 session_start();
+include 'includes/redirectlogin.php';
+
 ?>
 
 <?php

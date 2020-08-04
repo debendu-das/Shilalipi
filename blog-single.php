@@ -1,5 +1,7 @@
 <?php include 'includes/pdo.php';
 session_start();
+include 'includes/redirectlogin.php';
+
 ?>
 
 <?php
@@ -18,8 +20,16 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(array(
   ':blog' => $blogid));
 
-
-
+  if (isset($_POST['comment_content'])) {
+    $datetime = date("M d,Y h:ia");
+    $sql = " INSERT INTO comments (blog_id, comment_content, comment_date, user_id) VALUES ( :blog_id, :comment_content, :comment_date, :user_id) ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(array(
+        ':blog_id' => $blogid,
+        ':comment_content' => $_POST['comment_content'],
+        ':comment_date' => $datetime,
+        ':user_id' => $_SESSION['user_id'] ));
+  }
 ?>
   <body>
     <div class="wrap">
@@ -49,13 +59,11 @@ $stmt->execute(array(
                 <?php
                   if (isset($_SESSION['user_id'])) {
                     include "./includes/commentform.php";
-                  else {
-                    echo "You Need To Login";
+                  }else {
+                    echo "You Need To <a href='login.php' class='link'>Login </a>First";
                   }
 
                   ?>
-
-
 
               </div>
             </div>
@@ -75,20 +83,8 @@ $stmt->execute(array(
             </div>
             <!-- END sidebar-box -->
             <div class="sidebar-box">
-              <div class="bio text-center">
-                <img src="images/person_2.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="bio-body">
-                  <h2>Craig David</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
-                  <p><a href="#" class="btn btn-primary btn-sm rounded">Read my bio</a></p>
-                  <p class="social">
-                    <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
-                  </p>
-                </div>
-              </div>
+              <?php include "./includes/postprofile.php"; ?>
+
             </div>
             <!-- END sidebar-box -->
 

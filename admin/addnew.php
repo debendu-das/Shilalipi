@@ -8,7 +8,6 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 <?php
 session_start();  //session start
 
-$_SESSION['user_id'] = 1;
 //form validation start
 if (isset($_POST['publish'])) { //submit for or not
 
@@ -243,7 +242,6 @@ if (isset($_POST['publish'])) { //submit for or not
         weight:200
       });
 </script>
-
 
 </body>
 

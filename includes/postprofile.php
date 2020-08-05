@@ -1,7 +1,7 @@
 <?php
   include_once "pdo.php";
 
-  $sql1 = " SELECT users.name, users.user_img, users.user_description FROM users JOIN blog ON blog.user_id = $bloguserid AND blog.blog_id = $blogid ";
+  $sql1 = " SELECT users.name, users.user_img, users.user_description FROM users JOIN blog ON blog.user_id = users.user_id AND blog.blog_id = $blogid ";
   $stmt = $pdo->query($sql1);
   while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
 ?>

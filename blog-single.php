@@ -12,7 +12,8 @@ if (!isset($_GET['blog_id'])) {
   header( 'Location: ./index.php');
   return;
 }
-
+?>
+<?php
 $blogid = $_GET['blog_id'];
 
 $sql = "UPDATE blog SET blog_view = blog_view + 1 WHERE blog_id = :blog ";
@@ -29,6 +30,8 @@ $stmt->execute(array(
         ':comment_content' => $_POST['comment_content'],
         ':comment_date' => $datetime,
         ':user_id' => $_SESSION['user_id'] ));
+    header( 'Location: ./blog-single.php?blog_id='.$blogid);
+    return;
   }
 ?>
   <body>

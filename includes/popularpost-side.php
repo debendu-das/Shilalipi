@@ -7,7 +7,7 @@
 ?>
 
     <li>
-      <a href="index.php?blog=<?php echo($row['blog_id']); ?>">
+      <a href="blog-single.php?blog_id=<?php echo($row['blog_id']); ?>">
         <img src="admin/<?php echo $row['blog_img'];?>" alt="Image placeholder" class="mr-4">
         <div class="text">
           <h4><?php echo($row['blog_title']); ?></h4>

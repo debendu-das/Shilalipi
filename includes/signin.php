@@ -1,20 +1,19 @@
 <?php include 'pdo.php';?>
 
 <?php
-if (isset($_POST['email']) && isset($_POST['password'])) {
-  $validemail = false ;
-  $email = $_POST['email'];
-  $pass = $_POST['password'];
-  $sql = " SELECT user_id, email, password FROM users WHERE email = '$email' AND password = '$pass' ";
-  $stmt = $pdo->query($sql);
-  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $validemail = true ;
-    $_SESSION['user_id'] = $row['user_id'];
-    header('location:' . $_SESSION['redirectURL']);
-    return;
-  }
-
-}
+// if (isset($_POST['email']) && isset($_POST['password'])) {
+//   $validemail = false ;
+//   $email = $_POST['email'];
+//   $pass = $_POST['password'];
+//   $sql = " SELECT user_id, email, password FROM users WHERE email = '$email' AND password = '$pass' ";
+//   $stmt = $pdo->query($sql);
+//   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+//     $validemail = true ;
+//     $_SESSION['user_id'] = $row['user_id'];
+//     header('location:' . $_SESSION['redirectURL']);
+//     return;
+//   }
+// }
 
 ?>
 
@@ -24,7 +23,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   <form method="POST" class="my-login-validation" novalidate="">
     <div class="form-group">
       <label for="email">Email Id</label>
-      <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+      <input id="email" type="email" class="form-control" name="login_email" value="" required autofocus>
       <div class="invalid-feedback">
         Email is invalid
       </div>
@@ -36,7 +35,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
           Forgot Password?
         </a>
       </label>
-      <input id="password" type="password" class="form-control" name="password" required data-eye>
+      <input id="password" type="password" class="form-control" name="login_password" required data-eye>
         <div class="invalid-feedback">
           Password is required
         </div>

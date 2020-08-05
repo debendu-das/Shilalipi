@@ -6,7 +6,6 @@ $limitend = $limit+4;
 $page = 1;
 
 if (isset($_GET['page'])) {
-
   $page = $_GET['page'];
   $limitend = $page*4;
   $limit = $limitend - 4;
@@ -30,7 +29,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       <img src="admin/<?php echo $row['blog_img'];?>" alt="Image placeholder">
       <div class="blog-content-body">
         <div class="post-meta">
-          <span class="author mr-2"><img src="admin/<?php echo $row['user_img'];?>" alt="User Name"> <?php echo($row['name']); ?></span>&bullet;
+          <span class="author mr-2"><img src="<?php echo $row['user_img'];?>" alt="User Name"> <?php echo($row['name']); ?></span>&bullet;
           <span class="mr-2"><?php echo($row['blog_date']); ?> </span> &bullet;
           <span class="ml-2"><span class="fa fa-comments"></span> <?php echo($count); ?></span>
         </div>

@@ -6,7 +6,7 @@
   while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
 ?>
   <div class="bio text-center">
-    <img src="admin/<?= $row['user_img'] ?>" alt="Image Placeholder" class="img-fluid">
+    <img src="<?= $row['user_img'] ?>" alt="Image Placeholder" class="img-fluid">
     <div class="bio-body">
       <h2><?= $row['name'] ?></h2>
       <p><?= $row['user_description'] ?></p>
@@ -19,4 +19,4 @@
       </p>
     </div>
   </div>
-<?php } ?>
+<?php break; } ?>

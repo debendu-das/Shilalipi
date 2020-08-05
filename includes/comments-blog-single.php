@@ -8,7 +8,7 @@ while ($row = $stmtcomment->fetch(PDO::FETCH_ASSOC)) {
 
 <li class="comment">
   <div class="vcard">
-    <img src="admin/<?php echo $row['user_img'];?>" alt="Image placeholder">
+    <img src="<?php echo $row['user_img'];?>" alt="Image placeholder">
   </div>
   <div class="comment-body">
     <h3><?php echo $row['name'];?></h3>

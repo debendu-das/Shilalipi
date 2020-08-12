@@ -1,4 +1,4 @@
-<?php include 'pdo.php';?>
+<?php include_once 'pdo.php';?>
 
 <?php
 $fetched = false ;

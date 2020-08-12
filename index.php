@@ -6,7 +6,6 @@ include 'includes/redirectlogin.php';
 
 <?php
 include_once "./includes/head.php";
-
 ?>
   <body>
     <div class="wrap">
@@ -34,14 +33,14 @@ include_once "./includes/head.php";
               <h2 class="mb-4">Latest Posts</h2>
             </div>
           </div>
+
           <div class="row blog-entries">
             <div class="col-md-12 col-lg-8 main-content">
-              <div class="row">
+              <div class="row mb-5 mt-5">
 
                 <?php include_once "./includes/posts.php"; ?>
 
               </div>
-
             </div>
             <!-- END main-content -->
           </div>
@@ -59,10 +58,10 @@ include_once "./includes/head.php";
               <!-- END sidebar-box -->
               <div class="sidebar-box">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-8">
                     <h3 class="heading">Popular Posts</h3>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
                     <a href="popular.php">See all</a>
                   </div>
                 </div>
@@ -76,11 +75,11 @@ include_once "./includes/head.php";
 
               <div class="sidebar-box">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-8">
                     <h3 class="heading">Categories </h3>
                   </div>
-                  <div class="col-6">
-                    <a href="category.html">See all</a>
+                  <div class="col-4">
+                    <a href="category.php">See all</a>
                   </div>
                 </div>
                 <ul class="categories">
@@ -91,10 +90,10 @@ include_once "./includes/head.php";
 
               <div class="sidebar-box">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-8">
                     <h3 class="heading">Tags </h3>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
                     <a href="#">See all</a>
                   </div>
                 </div>

@@ -5,5 +5,5 @@ $stmt = $pdo->query("SELECT cat_id, cat_name, used FROM categorie ORDER BY used 
     $cat_title = $row['cat_name'];
     $used = $row['used'];
 ?>
-    <li><a href="category.html?cat_id=<?= $cat_id ?>"><?= $cat_title ?> <span>(<?= $used ?>)</span></a></li>
+    <li><a href="category.php?cat_name=<?= $cat_title ?>"><?= $cat_title ?> <span>(<?= $used ?>)</span></a></li>
 <?php } ?>

@@ -9,7 +9,8 @@ if (isset($_POST['login_email']) && isset($_POST['login_password'])) {
   $stmt = $pdo->query($sql);
   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $validemail = true ;
-    $_SESSION['user_id'] = $row['user_id'];
+    $_SESSION['user_name'] = $row['name'];
+    $_SESSION['success'] = "Welcome {$row['name']}";
     header('location:' . $_SESSION['redirectURL']);
     return;
   }

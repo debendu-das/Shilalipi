@@ -6,8 +6,8 @@ include 'includes/redirectlogin.php';
 
 <?php
 include_once "./includes/head.php";
-if(isset($_SESSION['user_id'])) {
-  unset($_SESSION['user_id']);
+if(isset($_SESSION['user_name'])) {
+  unset($_SESSION['user_name']);
 }
 ?>
   <body>
@@ -47,10 +47,10 @@ if(isset($_SESSION['user_id'])) {
               <!-- END sidebar-box -->
               <div class="sidebar-box">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-8">
                     <h3 class="heading">Recent Posts</h3>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
                     <a href="popular.php">See all</a>
                   </div>
                 </div>
@@ -64,11 +64,11 @@ if(isset($_SESSION['user_id'])) {
 
               <div class="sidebar-box">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-8">
                     <h3 class="heading">Categories </h3>
                   </div>
-                  <div class="col-6">
-                    <a href="category.html">See all</a>
+                  <div class="col-4">
+                    <a href="category.php">See all</a>
                   </div>
                 </div>
                 <ul class="categories">
@@ -79,10 +79,10 @@ if(isset($_SESSION['user_id'])) {
 
               <div class="sidebar-box">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-8">
                     <h3 class="heading">Tags </h3>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
                     <a href="#">See all</a>
                   </div>
                 </div>

@@ -63,7 +63,7 @@ $stmt->execute(array(
                   if (isset($_SESSION['user_id'])) {
                     include "./includes/commentform.php";
                   }else {
-                    echo "You Need To <a href='login.php' class='link'>Login </a>First";
+                    echo "You Need To <a href='login.php' class='link btn btn-outline-primary'>Login </a>  First<br><br>";
                   }
 
                   ?>
@@ -184,10 +184,19 @@ $stmt->execute(array(
 
           autoPlay: 3000, //Set AutoPlay to 3 seconds
 
-          items : 3,
-          itemsDesktop : [1199,3],
-          itemsDesktopSmall : [979,3]
+          loop:true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+        },
 
+        1000:{
+            items:3,
+            loop:false
+        }
+    }
       });
 
       });

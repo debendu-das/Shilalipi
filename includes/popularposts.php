@@ -1,18 +1,16 @@
 <?php include_once 'includes/pdo.php'; ?>
 <?php
 
-$limit = 0;
-$limitend = $limit+4;
-$page = 1;
-
 if (isset($_GET['page'])) {
   $page = $_GET['page'];
-  $limitend = $page*4;
-  $limit = $limitend - 4;
+  $limit = ($page*6) - 6;
+}else {
+  $limit = 0;
+  $page = 1;
 }
 
 
-$sql1 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_date, users.user_id, users.name, users.user_img FROM blog JOIN users Where blog.user_id = users.user_id ORDER BY blog_view DESC LIMIT $limit, 4 ";
+$sql1 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_date, users.user_id, users.name, users.user_img FROM blog JOIN users Where blog.user_id = users.user_id ORDER BY blog_view DESC LIMIT $limit, 6 ";
 $stmt = $pdo->query($sql1);
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
   $blogid = $row['blog_id'];
@@ -42,16 +40,16 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 }
  ?>
 
-<div class="row mt-5">
+<div class="row mt-5 mx-auto">
   <div class="col-md-12 text-center">
     <nav aria-label="Page navigation" class="text-center">
       <ul class="pagination">
-        <li class="page-item  active"><a class="page-link" href="index.php?page=<?= $page>1 ? $page-1 : $page  ?>">&lt;</a></li>
-        <li class="page-item"><a class="page-link" href="index.php">1</a></li>
-        <li class="page-item"><a class="page-link" href="index.php?page=2">2</a></li>
-        <li class="page-item"><a class="page-link" href="index.php?page=3">3</a></li>
-        <li class="page-item"><a class="page-link" href="index.php?page=4">4</a></li>
-        <li class="page-item"><a class="page-link" href="index.php?page=5">5</a></li>
+        <li class="page-item"><a class="page-link" href="popular.php?page=<?= $page>1 ? $page-1 : $page  ?>" >&lt;</a></li>
+        <li class="page-item <?php if($page==1) echo ('active'); ?>"><a class="page-link" href="popular.php">1</a></li>
+        <li class="page-item <?php if($page==2) echo ('active'); ?>"><a class="page-link" href="popular.php?page=2">2</a></li>
+        <li class="page-item <?php if($page==3) echo ('active'); ?>"><a class="page-link" href="popular.php?page=3">3</a></li>
+        <li class="page-item <?php if($page==4) echo ('active'); ?>"><a class="page-link" href="popular.php?page=4">4</a></li>
+        <li class="page-item <?php if($page==5) echo ('active'); ?>"><a class="page-link" href="popular.php?page=5">5</a></li>
         <li class="page-item"><a class="page-link" href="index.php?page=<?= $page+1 ?>">&gt;</a></li>
       </ul>
     </nav>

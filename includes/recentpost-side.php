@@ -1,7 +1,7 @@
 <?php include_once 'pdo.php' ?>
 
 <?php
-  $sql1 = "SELECT blog_id, blog_title, blog_img, blog_date FROM blog ORDER BY blog_id DESC LIMIT 1,4 ";
+  $sql1 = "SELECT blog_id, blog_title, blog_img, blog_date FROM blog ORDER BY blog_id DESC LIMIT 0,4 ";
   $stmt = $pdo->query($sql1);
   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 ?>

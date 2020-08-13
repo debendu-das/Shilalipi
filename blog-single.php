@@ -93,10 +93,10 @@ $stmt->execute(array(
 
             <div class="sidebar-box">
               <div class="row">
-                <div class="col-6">
+                <div class="col-8">
                   <h3 class="heading">Popular Posts</h3>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                   <a href="popular.php">See all</a>
                 </div>
               </div>
@@ -109,11 +109,11 @@ $stmt->execute(array(
 
             <div class="sidebar-box">
               <div class="row">
-                <div class="col-6">
+                <div class="col-8">
                   <h3 class="heading">Categories </h3>
                 </div>
-                <div class="col-6">
-                  <a href="category.html">See all</a>
+                <div class="col-4">
+                  <a href="category.php">See all</a>
                 </div>
               </div>
               <ul class="categories">
@@ -123,11 +123,11 @@ $stmt->execute(array(
 
             <div class="sidebar-box">
               <div class="row">
-                <div class="col-6">
+                <div class="col-8">
                   <h3 class="heading">Tags </h3>
                 </div>
-                <div class="col-6">
-                  <a href="#">See all</a>
+                <div class="col-4">
+                  <a href="tags.php">See all</a>
                 </div>
               </div>
               <ul class="tags">

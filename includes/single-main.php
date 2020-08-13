@@ -19,7 +19,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         <span class="ml-2"><span class="fa fa-comments"></span> <?= $count ?></span>
       </div>
     <h1 class="mb-4"><?= $row['blog_title'] ?></h1>
-    <a class="category mb-5" href="category.php"><?= $row['cat_name'] ?></a>
+    <a class="category mb-5" href="category.php?cat_name=<?= $row['cat_name'] ?>"><?= $row['cat_name'] ?></a>
 
     <div class="post-content-body">
       <?= $row['blog_content'] ?>
@@ -36,14 +36,14 @@ if (!$fetched) {
 ?>
 
 <div class="pt-5">
-  <p>Categories:  <a href="category.php"><?= $blogcat ?></a> Tags:
+  <p>Categories:  <a href="category.php?cat_name=<?= $row['cat_name'] ?>"><?= $blogcat ?></a> Tags:
 
   <?php
     $sql = " SELECT tag.tag_id, tag.tag_name FROM tag JOIN blogtags ON blogtags.tag_id = tag.tag_id AND blogtags.blog_id = $blogid ";
     $stmt = $pdo->query($sql);
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
   ?>
-     <a href="tags.php">#<?= $row['tag_name'] ?></a>
+     <a href="tags.php?tag_name=<?= $row['tag_name'] ?>">#<?= $row['tag_name'] ?></a>
 
 <?php } ?>
   </p>

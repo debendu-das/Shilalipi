@@ -7,15 +7,13 @@ if (isset($_GET['cat_name'])) {
   $fetched = false ;
   if (isset($_GET['page'])) {
     $page = $_GET['page'];
-    $limitend = $page*4;
-    $limit = $limitend - 4;
+    $limit = ($page*6) - 6;
   }else {
     $limit = 0;
-    $limitend = $limit+4;
     $page = 1;
   }
 
-$sql1 = "SELECT blog.blog_id FROM blog JOIN users JOIN categorie Where blog.user_id = users.user_id AND blog.cat_id = categorie.cat_id AND categorie.cat_name = '$catname' LIMIT 1 ";
+$sql1 = "SELECT cat_id FROM categorie WHERE cat_name = '$catname' ";
 $stmt = $pdo->query($sql1);
 
 if(!$row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -143,7 +141,7 @@ include_once "./includes/head.php";
                   <h3 class="heading">Tags </h3>
                 </div>
                 <div class="col-4">
-                  <a href="#">See all</a>
+                  <a href="tags.php">See all</a>
                 </div>
               </div>
               <ul class="tags">

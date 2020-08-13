@@ -83,7 +83,7 @@ if(isset($_SESSION['user_name'])) {
                     <h3 class="heading">Tags </h3>
                   </div>
                   <div class="col-4">
-                    <a href="#">See all</a>
+                    <a href="tags.php">See all</a>
                   </div>
                 </div>
                 <ul class="tags">

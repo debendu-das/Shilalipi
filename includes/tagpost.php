@@ -1,11 +1,11 @@
 <?php
-$stmt = $pdo->query("SELECT tag_id, tag_name FROM tag ORDER BY used DESC LIMIT 5 ");
+$stmt = $pdo->query("SELECT tag_id, tag_name FROM tag ORDER BY used DESC LIMIT 10 ");
  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $tag_id = $row['tag_id'];
       $tag_title = $row['tag_name'];
 ?>
 
 
-    <li><a href="category.html?<?= $tag_id ?>"><?= $tag_title ?></a></li>
+    <li><a href="tags.php?tag_name=<?= $tag_title ?>"><?= $tag_title ?></a></li>
 
 <?php } ?>

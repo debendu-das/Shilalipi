@@ -55,7 +55,6 @@ include_once "./includes/head.php";
               </div>
               <!-- END sidebar-box -->
 
-              <!-- END sidebar-box -->
               <div class="sidebar-box">
                 <div class="row">
                   <div class="col-8">
@@ -94,7 +93,7 @@ include_once "./includes/head.php";
                     <h3 class="heading">Tags </h3>
                   </div>
                   <div class="col-4">
-                    <a href="#">See all</a>
+                    <a href="tags.php">See all</a>
                   </div>
                 </div>
                 <ul class="tags">

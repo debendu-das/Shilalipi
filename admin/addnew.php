@@ -7,7 +7,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 <?php
 session_start();  //session start
-
+$_SESSION['user_id']=1; // !NEED TO MODIFY
 //form validation start
 if (isset($_POST['publish'])) { //submit for or not
 
@@ -238,7 +238,7 @@ if (isset($_POST['publish'])) { //submit for or not
       $('#summernote').summernote({
         placeholder: 'Write your Blog here !',
         tabsize: 2,
-        height: 200,
+        height: 500,
         weight:200
       });
 </script>

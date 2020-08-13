@@ -2,7 +2,7 @@
 
 <?php
 session_start();
-
+$_SESSION['user_id']=1;
 $user_id = $_SESSION['user_id'];
 
 // if (isset($_GET['edit'])) {

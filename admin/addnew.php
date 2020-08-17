@@ -161,7 +161,7 @@ if (isset($_POST['publish']) || isset($_POST['edit'])) { //submit for or not
 			<!-- Page Heading -->
 			<div class="row">
 
-					<h1 class="page-header">
+					<h1 class="page-header text-center">
 						Add a New Blog
 					</h1>
             </div>

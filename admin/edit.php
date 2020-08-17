@@ -244,7 +244,7 @@ if (isset($_POST['edit'])) { //submit for or not
 			<!-- Page Heading -->
 			<div class="row">
 
-					<h1 class="page-header">
+					<h1 class="page-header text-center">
 						Edit Your Blog
 					</h1>
             </div>

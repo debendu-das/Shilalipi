@@ -30,8 +30,8 @@ $user_name = $_SESSION['user_name'];
 
 			<!-- Page Heading -->
 			<div class="row">
-					<h1 class="page-header">
-						Welcome to the Administration Panel
+					<h1 class="page-header text-center">
+						<?= $_SESSION['user_name'] ?>'s Posts
 					</h1>
 			</div>
 			<div class="container-fluid">

@@ -1,3 +1,8 @@
+<?php
+session_start();
+ ?>
+
+
 <?php include 'includes/header.php';?>
 
 <body>
@@ -19,7 +24,7 @@
                         </div>
 
 
-                        <h1 class="page-header">
+                        <h1 class="page-header text-center">
                             Welcome to the Administration Panel
                         </h1>
                     </div>

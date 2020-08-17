@@ -47,6 +47,7 @@ $user_name = $_SESSION['user_name'];
            }
            ?>
         </div>
+
         <div class="row">
           <div class="table-responsive" style="overflow-x:auto;">
             <table class="table table-bordered table-striped table-hover">
@@ -84,11 +85,44 @@ $user_name = $_SESSION['user_name'];
                 echo("</td>");
                 $blog_id = $row['blog_id'];
                 echo "<td><a href='edit.php?edit_id=$blog_id' class='btn btn-primary'>Edit</a></td>";
-                echo "<td><a href='edit.php?delete=$blog_id' class='btn btn-danger'>Delete</a></td>";
-                echo "</tr>";
-                $num++;
-              }
-                 ?>
+
+								?>
+								<!-- Modal -->
+				<div class="modal fade" id="deleteModal<?=$blog_id ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h3 class="modal-title" id="deleteModalLabel">Delete Confirmation</h3>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h4>Are you sure to delete this post?</h4>
+								<div>
+									<div class="row">
+										<div class="col-12 text-center">
+											<img src="<?= $row['blog_img'] ?>" alt="Blog Image" style="width:30%">
+										</div>
+										<div class="col-12 text-center">
+											<h3><?= $row['blog_title'] ?></h3>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<a href="edit.php?delete_id=<?= $blog_id ?>" class="btn btn-danger">Confirm</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php
+			echo "<td><button type='button' class='btn btn-danger'data-toggle='modal' data-target='#deleteModal$blog_id'>Delete</button></td>";
+			echo "</tr>";
+			$num++;
+		} ?>
               </tbody>
               </table>
 

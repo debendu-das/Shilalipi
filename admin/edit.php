@@ -9,6 +9,49 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 session_start();  //session start
 $_SESSION['user_id']=1; // !NEED TO MODIFY
 //form validation start
+$edit_id=0;
+
+if(isset($_GET['delete_id'])){
+  $edit_id = $_GET['delete_id']+0;
+
+  $sql2 = "SELECT blog.blog_id, blog.cat_id FROM blog JOIN categorie ON blog.cat_id = categorie.cat_id AND blog.blog_id = $edit_id ";
+  $stmt = $pdo->query($sql2);
+  if($data = $stmt->fetch(PDO::FETCH_ASSOC)){
+    $sqlupdate = "UPDATE categorie SET used = used - 1 WHERE cat_id = :cat ";
+    $stmtupdate = $pdo->prepare($sqlupdate);
+    $stmtupdate->execute(array(
+      ':cat' => $data['cat_id'] ));
+  }else {
+    $_SESSION['error'] = 'Invalid Post';
+    header( 'Location: posts.php' ) ;
+    return;
+  }
+
+  $sql2 = " SELECT tag.tag_id FROM tag JOIN blogtags JOIN blog ON blogtags.blog_id = blog.blog_id AND blogtags.tag_id = tag.tag_id AND blog.blog_id = $edit_id ";
+  $tagdata = $pdo->query($sql2);
+  while($row = $tagdata->fetch(PDO::FETCH_ASSOC)){
+    $sqlupdate = "UPDATE tag SET used = used - 1 WHERE tag_id = :tag ";
+    $stmtupdate = $pdo->prepare($sqlupdate);
+    $stmtupdate->execute(array(
+      ':tag' => $row['tag_id']));
+  }
+
+  $sql="DELETE FROM blogtags WHERE blog_id = :blog_id";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute(array(':blog_id' => $edit_id));
+
+  $sql="DELETE FROM comments WHERE blog_id = :blog_id";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute(array(':blog_id' => $edit_id));
+
+  $sql="DELETE FROM blog WHERE blog_id = :blog_id";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute(array(':blog_id' => $edit_id));
+
+  $_SESSION['success'] = 'Post Deleted';
+  header( 'Location: posts.php' ) ;
+  return;
+}
 if (isset($_GET['edit_id'])) {
   $edit_id = $_GET['edit_id'];
 }

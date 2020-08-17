@@ -2,8 +2,13 @@
 
 <?php
 session_start();
+if (isset($_SESSION['edit'])) {
+unset($_SESSION["edit"]);}
+
 $_SESSION['user_id']=1;
+$_SESSION['user_name']='Debendu';
 $user_id = $_SESSION['user_id'];
+$user_name = $_SESSION['user_name'];
 
 // if (isset($_GET['edit'])) {
 //   $_SESSION['edit_id'] = $_GET['edit'];
@@ -50,6 +55,7 @@ $user_id = $_SESSION['user_id'];
                 <th>Blog Title</th>
                 <th>Blog Image</th>
                 <th>Blog Category</th>
+                <th>Blog Views</th>
                 <th>Blog Date</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -58,7 +64,7 @@ $user_id = $_SESSION['user_id'];
               <?php
 
               $num=1;
-              $sql1 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_date, categorie.cat_name FROM blog JOIN categorie ON blog.cat_id = categorie.cat_id ORDER BY blog_id DESC";
+              $sql1 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_view, blog.blog_date, categorie.cat_name FROM blog JOIN categorie ON blog.cat_id = categorie.cat_id ORDER BY blog_id DESC";
               $stmt = $pdo->query($sql1);
               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr><td>";
@@ -72,11 +78,13 @@ $user_id = $_SESSION['user_id'];
                 echo("</td><td>");
                 echo($row['cat_name']);
                 echo("</td><td>");
+                echo($row['blog_view']);
+                echo("</td><td>");
                 echo($row['blog_date']);
                 echo("</td>");
                 $blog_id = $row['blog_id'];
-                echo "<td><a href='posts.php?edit=$blog_id' class='btn btn-primary'>Edit</a></td>";
-                echo "<td><a href='posts.php?delete=$blog_id' class='btn btn-danger'>Delete</a></td>";
+                echo "<td><a href='edit.php?edit_id=$blog_id' class='btn btn-primary'>Edit</a></td>";
+                echo "<td><a href='edit.php?delete=$blog_id' class='btn btn-danger'>Delete</a></td>";
                 echo "</tr>";
                 $num++;
               }

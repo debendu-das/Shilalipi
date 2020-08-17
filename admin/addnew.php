@@ -9,7 +9,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 session_start();  //session start
 $_SESSION['user_id']=1; // !NEED TO MODIFY
 //form validation start
-if (isset($_POST['publish'])) { //submit for or not
+if (isset($_POST['publish']) || isset($_POST['edit'])) { //submit for or not
 
   $_SESSION['blogtitle'] = $_POST['blog_title'];
   $_SESSION['blogcat'] = $_POST['blog_cat'];

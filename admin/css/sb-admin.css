@@ -135,9 +135,6 @@ ul.alert-dropdown {
         outline: none;
         background-color: #000 !important;
     }
-    .table-responsive{
-      width: 80%;
-    }
 }
 
 .side-nav>li>ul {

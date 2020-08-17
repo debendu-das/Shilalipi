@@ -14,15 +14,6 @@
             <span class="icon fa fa-search"></span>
             <input type="text" id="s" placeholder="Type keyword to search...">
           </form>
-          <!-- <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">HTML</a></li>
-              <li><a href="#">CSS</a></li>
-              <li><a href="#">JavaScript</a></li>
-            </ul>
-          </div> -->
         </div>
 
       </div>
@@ -61,16 +52,23 @@
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href=
-            <?php if (isset($_SESSION['user_name'])) {
-              echo " './admin/' >Dashboard </a>";
-            }else {
-              echo " './login.php' >Login </a>";
-            }
+          <?php if (isset($_SESSION['user_name'])) { ?>
 
-             ?>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="category.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown05">
+                <a class="dropdown-item" href="./admin/">Dashboard</a>
+                <a class="dropdown-item" href="./admin/posts.php">Posts</a>
+                <a class="dropdown-item" href="./admin/account.php">Account</a>
+                <a class="dropdown-item" href="logout.php">Log out</a>
+              </div>
+            </li>
+
+          <?php }else { ?>
+          <li class="nav-item">
+            <a class="nav-link" href=<?php echo " './login.php' >Login </a>"; ?>
           </li>
+        <?php } ?>
         </ul>
 
       </div>

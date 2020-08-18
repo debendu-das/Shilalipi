@@ -1,5 +1,5 @@
 <?php
-$stmt = $pdo->query("SELECT cat_id, cat_name, used FROM categorie ORDER BY used DESC LIMIT 5 ");
+$stmt = $pdo->query("SELECT cat_id, cat_name, used FROM categorie WHERE used > 0  ORDER BY used DESC LIMIT 5 ");
  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $cat_id = $row['cat_id'];
     $cat_title = $row['cat_name'];

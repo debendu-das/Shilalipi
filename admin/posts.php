@@ -5,8 +5,6 @@ session_start();
 if (isset($_SESSION['edit'])) {
 unset($_SESSION["edit"]);}
 
-$_SESSION['user_id']=1;
-$_SESSION['user_name']='Debendu';
 $user_id = $_SESSION['user_id'];
 $user_name = $_SESSION['user_name'];
 
@@ -65,7 +63,7 @@ $user_name = $_SESSION['user_name'];
               <?php
 
               $num=1;
-              $sql1 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_view, blog.blog_date, categorie.cat_name FROM blog JOIN categorie ON blog.cat_id = categorie.cat_id ORDER BY blog_id DESC";
+              $sql1 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_view, blog.blog_date, categorie.cat_name FROM blog JOIN categorie ON blog.cat_id = categorie.cat_id AND blog.user_id = $user_id ORDER BY blog_id DESC";
               $stmt = $pdo->query($sql1);
               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr><td>";

@@ -1,3 +1,12 @@
+<?php
+if(isset($_GET['logout'])){
+  unset($_SESSION["user_id"]);
+  unset($_SESSION["user_name"]);
+  $_SESSION["success"] = "You are logged out";
+  header( 'Location: ./index.php');
+  return;
+}
+ ?>
 <header role="banner">
   <div class="top-bar">
     <div class="container">
@@ -60,7 +69,7 @@
                 <a class="dropdown-item" href="./admin/">Dashboard</a>
                 <a class="dropdown-item" href="./admin/posts.php">Posts</a>
                 <a class="dropdown-item" href="./admin/account.php">Account</a>
-                <a class="dropdown-item" href="logout.php">Log out</a>
+                <a class="dropdown-item" href="index.php?logout">Log out</a>
               </div>
             </li>
 

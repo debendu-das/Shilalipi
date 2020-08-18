@@ -59,7 +59,7 @@ include_once "./includes/head.php";
           <div class="col-md-12 col-lg-8">
 
             <?php
-            $stmt = $pdo->query("SELECT tag_name FROM tag ORDER BY used DESC ");
+            $stmt = $pdo->query("SELECT tag_name FROM tag WHERE used > 0 ORDER BY used DESC ");
              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $cat_title = $row['tag_name'];
             ?>

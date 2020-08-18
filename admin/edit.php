@@ -7,7 +7,11 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 <?php
 session_start();  //session start
-$_SESSION['user_id']=1; // !NEED TO MODIFY
+if(isset($_POST['cancel'])){
+  $_SESSION['success'] = 'Cancel Post Edit';
+  header( 'Location: posts.php' ) ;
+  return;
+}
 //form validation start
 $edit_id=0;
 
@@ -55,6 +59,9 @@ if(isset($_GET['delete_id'])){
 if (isset($_GET['edit_id'])) {
   $edit_id = $_GET['edit_id'];
 }
+
+
+// ******************************** Edit Start ********************************************************************//
 if (!isset($_SESSION['edit'])) {
   $sql2 = "SELECT blog.blog_id, blog.blog_title, blog.blog_img, blog.blog_content, blog.cat_id, categorie.cat_name FROM blog JOIN categorie ON blog.cat_id = categorie.cat_id AND blog.blog_id = $edit_id ";
   $stmt = $pdo->query($sql2);
@@ -303,6 +310,7 @@ if (isset($_POST['edit'])) { //submit for or not
                     <input type="text" class="form-control" id="blog_tag" name="blog_tag" value="<?php echo (isset($_SESSION['blogtag']) ? $_SESSION['blogtag'] : ''); ?>">
                 </div>
                 <input type="submit" name="edit" value="Edit Post"  class="btn btn-primary">
+                <input type="submit" name="cancel" value="Cancle"  class="btn btn-secondary">
             </form>
             </div>
         </div>

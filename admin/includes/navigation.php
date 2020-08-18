@@ -47,9 +47,9 @@
 
                         </ul>
                     </li>
-                       <li>
+                    <!-- <li>
                         <a href="categories.php"><i class="fa fa-fw fa-suitcase"></i> Categories</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="comment.php"><i class="fa fa-fw fa-comment"></i> Comments </a>
                     </li>

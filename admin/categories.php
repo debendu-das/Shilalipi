@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php include 'includes/header.php';?>
 
     <div id="wrapper">
@@ -15,7 +16,7 @@
                     <div class="col-lg-12">
 
                         <h1 class="page-header">
-                            Welcome to the Administration Panel
+                            Welcome to Category
                         </h1>
 					<div class="col-sm-6">
 						<form action="includes/functions.php" method="post">
@@ -29,7 +30,7 @@
 
 						</div>
                	<div class="col-sm-6">
-               
+
 						</div>
                 <!-- /.row -->
             </div>

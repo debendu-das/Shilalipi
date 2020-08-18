@@ -15,6 +15,9 @@ if (isset($_POST['login_email']) && isset($_POST['login_password'])) {
     header('location:' . $_SESSION['redirectURL']);
     return;
   }
+  $_SESSION['error'] = "Invaid Email Id or Password";
+  header('location: login.php');
+  return;
 }
 
 if (isset($_GET['signup'])) {

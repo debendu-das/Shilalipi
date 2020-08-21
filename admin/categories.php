@@ -1,24 +1,22 @@
 <?php session_start(); ?>
 <?php include 'includes/header.php';?>
 
-    <div id="wrapper">
+<div id="wrapper">
 
-        <!-- Navigation -->
-       <?php include 'includes/navigation.php'; ?>
+  <!-- Navigation -->
+  <?php include 'includes/navigation.php'; ?>
+  <div id="page-wrapper">
 
+    <div class="container-fluid">
 
-        <div id="page-wrapper">
+      <!-- Page Heading -->
+      <div class="row">
+        <div class="col-lg-12">
 
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        <h1 class="page-header">
-                            Welcome to Category
-                        </h1>
-					<div class="col-sm-6">
+          <h1 class="page-header">
+            Welcome to Category
+          </h1>
+			     <div class="col-sm-6">
 						<form action="includes/functions.php" method="post">
 							<div class="form-group">
 								<input type="text" name="cat_title" placeholder="Category Title" class="form-control">

@@ -4,24 +4,26 @@ include 'includes/redirectlogin.php';
 
 ?>
 
-<?php
-include_once "./includes/head.php";
-if(isset($_SESSION['user_name'])) {
-  unset($_SESSION['user_name']);
-}
-?>
+<?php include_once "./includes/head.php"; ?>
   <body>
     <div class="wrap">
 
     <?php include_once "./includes/header.php"; ?>
 
       <section class="site-section py-sm">
+        
         <div class="container">
+
+          <div class="row mt-2">
+            <?php include_once "./includes/flash.php"; ?>
+          </div>
+
           <div class="row pt-5">
             <div class="col-md-6">
               <h2 class="mb-4">Popular Posts</h2>
             </div>
           </div>
+
           <div class="row blog-entries">
             <div class="col-md-12 col-lg-8 main-content">
               <div class="row">

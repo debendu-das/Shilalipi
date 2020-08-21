@@ -1,21 +1,12 @@
-<?php
-if(isset($_GET['logout'])){
-  unset($_SESSION["user_id"]);
-  unset($_SESSION["user_name"]);
-  $_SESSION["success"] = "You are logged out";
-  header( 'Location: ./index.php');
-  return;
-}
- ?>
 <header role="banner">
   <div class="top-bar">
     <div class="container">
       <div class="row">
         <div class="col-6 social">
-          <a href="#"><span class="fa fa-twitter"></span></a>
-          <a href="#"><span class="fa fa-facebook"></span></a>
-          <a href="#"><span class="fa fa-instagram"></span></a>
-          <a href="#"><span class="fa fa-youtube-play"></span></a>
+          <a href="https://twitter.com"><span class="fa fa-twitter"></span></a>
+          <a href="https://facebook.com"><span class="fa fa-facebook"></span></a>
+          <a href="https://instagram.com"><span class="fa fa-instagram"></span></a>
+          <a href="https://youtube.com"><span class="fa fa-youtube-play"></span></a>
         </div>
         <div class="col-6 search-top">
           <!-- <a href="#"><span class="fa fa-search"></span></a> -->

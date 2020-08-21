@@ -1,7 +1,13 @@
 <?php include_once 'includes/pdo.php';
 session_start();
 include 'includes/redirectlogin.php';
-
+if(isset($_GET['logout'])){
+  $_SESSION['success'] = 'You are Logged Out';
+  unset($_SESSION["user_id"]);
+  unset($_SESSION["user_name"]);
+  header('location: index.php');
+  return;
+}
 ?>
 
 <?php

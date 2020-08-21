@@ -260,20 +260,9 @@ if (isset($_POST['edit'])) { //submit for or not
 		</div>
 		<!-- /.container-fluid -->
         <div class="container">
-            <div class="row">
-
-          <?php
-           if (isset($_SESSION['error'])) {
-             echo('<p style="color:red">'.$_SESSION["error"]."</p>\n");
-             unset($_SESSION["error"]);
-           }
-           if (isset($_SESSION['success'])) {
-             echo('<p style="color:green">'.$_SESSION["success"]."</p>\n");
-             unset($_SESSION["success"]);
-           }
-           ?>
-
-            </div>
+          <div class="row mt-2">
+            <?php include_once "./includes/flash.php"; ?>
+          </div>
         <div class="row">
             <div class="col-12 col-md-10 offset-3">
             <form action="./edit.php?edit_id=<?= $_SESSION['edit'] ?>" enctype="multipart/form-data" method="POST">

@@ -26,17 +26,8 @@ include_once "./includes/head.php";
 
     <section class="site-section pt-5">
       <div class="container">
-        <div class="row">
-          <?php
-           if (isset($_SESSION['error'])) {
-             echo('<p style="color:red">'.$_SESSION["error"]."</p>\n");
-             unset($_SESSION["error"]);
-           }
-           if (isset($_SESSION['success'])) {
-             echo('<p style="color:green">'.$_SESSION["success"]."</p>\n");
-             unset($_SESSION["success"]);
-           }
-           ?>
+        <div class="row mt-2">
+          <?php include_once "./includes/flash.php"; ?>
         </div>
         <div class="row blog-entries">
           <div class="col-md-12 col-lg-8 main-content">

@@ -51,17 +51,8 @@ if(isset($_POST['deletecomment'])){
     					</h1>
     			</div>
     			<div class="container-fluid">
-            <div class="row">
-              <?php
-               if (isset($_SESSION['error'])) {
-                 echo('<p style="color:red">'.$_SESSION["error"]."</p>\n");
-                 unset($_SESSION["error"]);
-               }
-               if (isset($_SESSION['success'])) {
-                 echo('<p style="color:green">'.$_SESSION["success"]."</p>\n");
-                 unset($_SESSION["success"]);
-               }
-               ?>
+            <div class="row mt-2">
+              <?php include_once "./includes/flash.php"; ?>
             </div>
 
             <div class="row">

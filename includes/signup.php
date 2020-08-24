@@ -1,44 +1,4 @@
 <?php
-
-// if (isset($_GET['signup'])) {
-//   if (isset($_POST['email'])) {
-//   	$email = $_POST['email'];
-//   	$sql1 = "SELECT user_id FROM users WHERE email = '$email' ";
-//   	$stmt = $pdo->query($sql1);
-//   	$row = $stmt->fetch(PDO::FETCH_ASSOC);
-//   	if ($row) {
-//   		$_SESSION['error'] = "Email already registered, Try with another Email";
-//       header( 'Location: ./login.php?signup');
-//       return;
-//   	}else{
-//       $user_img = $_FILES['user_img']['name'];
-//       $folder ='admin/uploads/';
-//       $user_img = $_FILES['user_img']['name'];
-//       $newname = $folder . time() ."-". rand(1000, 9999). $user_img ;
-//       $target_file=$folder.basename($_FILES["user_img"]["name"]);
-//       $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
-//
-//       move_uploaded_file( $_FILES['user_img'] ['tmp_name'], $newname);
-//
-//       $sql = "INSERT INTO users ( email, name, password, user_img, user_description )
-//       				VALUES ( :email, :name, :password, :user_img, :user_description ) ";
-//       $stmt = $pdo->prepare($sql);
-//       $stmt->execute(array(
-//       		':email' => $_POST['email'],
-//       		':name' => $_POST['name'],
-//       		':password' => $_POST['password'],
-//       		':user_img' => $newname,
-//       		':user_description' => $_POST['user_description']));
-//       //blog_id
-//       $user_id = $pdo->lastInsertId();
-//       $_SESSION['user_id'] = $user_id;
-//       header('location:' . $_SESSION['redirectURL']);
-//       return;
-//     }
-//
-//   }
-// }
-//
 ?>
 <div class="card-body">
 	<h4 class="card-title">Register</h4>
@@ -76,6 +36,14 @@
 		</div>
 
 		<div class="form-group">
+			<label for="dob">Date Of Birth</label>
+			<input id="dob" type="date" class="form-control" name="dob" placeholder="YYYY-MM-DD" required>
+			<div class="invalid-feedback">
+				Date Of Birth is required
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label for="user_description">Description</label>
 			<textarea id="description" cols="30" class="form-control" name="user_description" required></textarea>
 			<div class="invalid-feedback">
@@ -94,7 +62,7 @@
 		</div>
 
 		<div class="form-group m-0">
-			<button type="submit" class="btn btn-primary btn-block">
+			<button type="submit" name="signup" class="btn btn-primary btn-block">
 				Register
 			</button>
 		</div>

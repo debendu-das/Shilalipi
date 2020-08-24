@@ -299,7 +299,7 @@ if (isset($_POST['edit'])) { //submit for or not
                     <input type="text" class="form-control" id="blog_tag" name="blog_tag" value="<?php echo (isset($_SESSION['blogtag']) ? $_SESSION['blogtag'] : ''); ?>">
                 </div>
                 <input type="submit" name="edit" value="Edit Post"  class="btn btn-primary">
-                <input type="submit" name="cancel" value="Cancle"  class="btn btn-secondary">
+                <input type="submit" name="cancel" value="Cancel"  class="btn btn-secondary">
             </form>
             </div>
         </div>

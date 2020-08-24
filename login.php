@@ -20,7 +20,7 @@ if (isset($_POST['login_email']) && isset($_POST['login_password'])) {
   return;
 }
 
-if (isset($_GET['signup'])) {
+if (isset($_POST['signup'])) {
   if (isset($_POST['email'])) {
   	$email = $_POST['email'];
   	$sql1 = "SELECT user_id FROM users WHERE email = '$email' ";
@@ -40,14 +40,15 @@ if (isset($_GET['signup'])) {
 
       move_uploaded_file( $_FILES['user_img'] ['tmp_name'], $newname);
 
-      $sql = "INSERT INTO users ( email, name, password, user_img, user_description )
-      				VALUES ( :email, :name, :password, :user_img, :user_description ) ";
+      $sql = "INSERT INTO users ( email, name, password, user_img, dob, user_description )
+      				VALUES ( :email, :name, :password, :user_img, :dob, :user_description ) ";
       $stmt = $pdo->prepare($sql);
       $stmt->execute(array(
       		':email' => $_POST['email'],
       		':name' => $_POST['name'],
       		':password' => $_POST['password'],
       		':user_img' => $newname,
+      		':dob' => $_POST['dob'],
       		':user_description' => $_POST['user_description']));
       //blog_id
       $user_id = $pdo->lastInsertId();
@@ -57,6 +58,36 @@ if (isset($_GET['signup'])) {
     }
   }
 }
+
+if (isset($_POST['forget'])) {
+  $email = $_POST['email'];
+  $dob = $_POST['dob'];
+  $sql1 = "SELECT user_id FROM users WHERE email = '$email' AND dob = '$dob' ";
+  $stmt = $pdo->query($sql1);
+  if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $_SESSION['success'] = "Account Found";
+    $user_id = $row['user_id']+0;
+    header( 'Location: ./login.php?forget&user_id='.$user_id);
+    return;
+  }else {
+    $_SESSION['error'] = "Wrong Email Id or Date Of Birth";
+    header( 'Location: ./login.php?forget');
+    return;
+  }
+}
+
+if (isset($_POST['resetpassword'])) {
+  $user_id = $_GET['user_id'] + 0;
+  $sqlupdate = "UPDATE users SET password = :password WHERE user_id = :user_id ";
+  $stmtupdate = $pdo->prepare($sqlupdate);
+  $stmtupdate->execute(array(
+    ':password' => $_POST['password'],
+    ':user_id' => $user_id ));
+    $_SESSION["success"] = "Password Updated\nLogin with Your New Password";
+    header('Location: login.php');
+    return;
+}
+
 
 
 
@@ -105,38 +136,46 @@ include_once "./includes/head.php";
   <?php include_once "./includes/scripts.php"; ?>
   <script src="js/my-login.js"></script>
   <script>
-          function fileValidation() {
-              var fileInput =
-                  document.getElementById('file');
+  function validateForm() {
+    var x = document.forms["pass"]["password"].value;
+    var y = document.forms["pass"]["password2"].value;
+    if (x.localeCompare(y)!=0) {
+      alert("New Password Doesn't Match");
+      return false;
+    }
+  }
+  function fileValidation() {
+      var fileInput =
+          document.getElementById('file');
 
-              var filePath = fileInput.value;
+      var filePath = fileInput.value;
 
-              // Allowing file type
-              var allowedExtensions =
-                      /(\.jpg|\.jpeg|\.png)$/i;
+      // Allowing file type
+      var allowedExtensions =
+              /(\.jpg|\.jpeg|\.png)$/i;
 
-              if (!allowedExtensions.exec(filePath)) {
-                  alert('Only Jpg, Jpeg & Png type file allowed');
-                  fileInput.value = '';
-                  return false;
-              }
-              else
-              {
+      if (!allowedExtensions.exec(filePath)) {
+          alert('Only Jpg, Jpeg & Png type file allowed');
+          fileInput.value = '';
+          return false;
+      }
+      else
+      {
 
-                  // Image preview
-                  if (fileInput.files && fileInput.files[0]) {
-                      var reader = new FileReader();
-                      reader.onload = function(e) {
-                          document.getElementById(
-                              'imagePreview').innerHTML =
-                              '<img src="' + e.target.result
-                              + '"/>';
-                      };
+          // Image preview
+          if (fileInput.files && fileInput.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                  document.getElementById(
+                      'imagePreview').innerHTML =
+                      '<img src="' + e.target.result
+                      + '"/>';
+              };
 
-                      reader.readAsDataURL(fileInput.files[0]);
-                  }
-              }
+              reader.readAsDataURL(fileInput.files[0]);
           }
+      }
+  }
       </script>
 
 </body>

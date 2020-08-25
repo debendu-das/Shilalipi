@@ -10,9 +10,9 @@
         </div>
         <div class="col-6 search-top">
           <!-- <a href="#"><span class="fa fa-search"></span></a> -->
-          <form action="#" class="search-top-form">
+          <form action="search.php" method="GET" class="search-top-form">
             <span class="icon fa fa-search"></span>
-            <input type="text" id="s" placeholder="Type keyword to search...">
+            <input type="text" name="search" id="s" placeholder="Type keyword to search..." required>
           </form>
         </div>
 
@@ -50,7 +50,7 @@
             <a class="nav-link" href="about.php">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
+            <a class="nav-link" href="contact.php">Contact</a>
           </li>
           <?php if (isset($_SESSION['user_name'])) { ?>
 
@@ -59,7 +59,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdown05">
                 <a class="dropdown-item" href="./admin/">Dashboard</a>
                 <a class="dropdown-item" href="./admin/posts.php">Posts</a>
-                <a class="dropdown-item" href="./admin/account.php">Account</a>
+                <a class="dropdown-item" href="./admin/profile.php">Account</a>
                 <a class="dropdown-item" href="index.php?logout">Log out</a>
               </div>
             </li>

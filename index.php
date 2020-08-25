@@ -43,10 +43,10 @@ include_once "./includes/head.php";
           </div>
             <div class="col-md-12 col-lg-4 sidebar">
               <div class="sidebar-box search-form-wrap">
-                <form action="#" class="search-form">
+                <form action="search.php" method="GET" class="search-form">
                   <div class="form-group">
+                    <input type="text" name="search" class="form-control" id="s" placeholder="Type a keyword and hit enter" required>
                     <span class="icon fa fa-search"></span>
-                    <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
                   </div>
                 </form>
               </div>

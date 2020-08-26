@@ -36,21 +36,21 @@
       <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="index.php">Home</a>
+            <a class="nav-link <?php if($active=='home')echo "active"; ?>" href="index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="popular.php">Popular</a>
+            <a class="nav-link <?php if($active=='popular')echo "active"; ?>" href="popular.php">Popular</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="category.php" >Categories</a>
+            <a class="nav-link <?php if($active=='categories')echo "active"; ?>" href="category.php" >Categories</a>
 
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.php">About</a>
+            <a class="nav-link <?php if($active=='about')echo "active"; ?>" href="about.php">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact.php">Contact</a>
+            <a class="nav-link <?php if($active=='contact')echo "active"; ?>" href="contact.php">Contact</a>
           </li>
           <?php if (isset($_SESSION['user_name'])) { ?>
 

@@ -12,7 +12,7 @@ include_once "./includes/head.php";
 
     <div class="wrap">
 
-      <?php include_once "./includes/header.php"; ?>
+      <?php $active='about'; include_once "./includes/header.php"; ?>
 
     <section class="site-section pt-5">
       <div class="container">

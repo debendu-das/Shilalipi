@@ -8,10 +8,10 @@ include 'includes/redirectlogin.php';
   <body>
     <div class="wrap">
 
-    <?php include_once "./includes/header.php"; ?>
+    <?php $active='popular'; include_once "./includes/header.php"; ?>
 
       <section class="site-section py-sm">
-        
+
         <div class="container">
 
           <div class="row mt-2">

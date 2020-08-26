@@ -1,4 +1,4 @@
-<?php include_once 'includes/pdo.php';
+<?php include 'includes/pdo.php';
 session_start();
 include 'includes/redirectlogin.php';
 if(isset($_GET['logout'])){
@@ -16,7 +16,7 @@ include_once "./includes/head.php";
   <body>
     <div class="wrap">
 
-    <?php include_once "./includes/header.php"; ?>
+    <?php $active='home'; include_once "./includes/header.php"; ?>
 
       <section class="site-section py-sm">
         <div class="container">

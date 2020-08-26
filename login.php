@@ -98,7 +98,7 @@ include_once "./includes/head.php";
 ?>
 <body>
   <div class="wrap">
-    <?php include_once "./includes/header.php"; ?>
+    <?php $active='login'; include_once "./includes/header.php"; ?>
 
     <div class="container">
       <div class="row mt-2">

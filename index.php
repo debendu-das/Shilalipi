@@ -42,6 +42,7 @@ include_once "./includes/head.php";
             <!-- END main-content -->
           </div>
             <div class="col-md-12 col-lg-4 sidebar">
+              <!-- START sidebar-box -->
               <div class="sidebar-box search-form-wrap">
                 <form action="search.php" method="GET" class="search-form">
                   <div class="form-group">
